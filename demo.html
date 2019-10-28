@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>random.js</title>
+
+	<style>
+		* { box-sizing: border-box; }
+		html { font: 100%/1.4 --system-ui, sans-serif; }
+	</style>
+	<script src="random.js" defer></script>
+</head>
+<body>
+
+	<h1>random.js demo</h1>
+
+	<div id="output"></div>
+	
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const rnd = new Random();
+			const output = document.querySelector('#output');
+
+			output.insertAdjacentHTML('beforeend', '<span>.bool(): '+rnd.bool()+'</p>');
+			output.insertAdjacentHTML('beforeend', '<span>.chance(odds): '+rnd.chance(80.0)+'</p>');
+			output.insertAdjacentHTML('beforeend', '<span>.random(): '+rnd.random()+'</p>');
+			output.insertAdjacentHTML('beforeend', '<span>.int(min, max): '+rnd.int(20, 80)+'</p>');
+			output.insertAdjacentHTML('beforeend', '<span>.float(min, max): '+rnd.float(20.0, 80.0)+'</p>');
+			output.insertAdjacentHTML('beforeend', '<span>.string(length, characters): '+rnd.string(32, '0123456789abcdef')+'</p>');
+			output.insertAdjacentHTML('beforeend', '<span>.pick(array): '+rnd.pick(['one', 'two', 'three'])+'</p>');
+			output.insertAdjacentHTML('beforeend', '<span>.shuffle(array): '+rnd.shuffle(['a', 'b', 'c', 'd', 'e', 'f'])+'</p>');
+			output.insertAdjacentHTML('beforeend', '<span>.weighted(inputArray, oddsArray): '+rnd.weighted(['a', 'b', 'c', 'd', 'e', 'f'], [1,1,1,2,2,6])+'</p>');
+		});
+	</script>
+</body>
+</html>
