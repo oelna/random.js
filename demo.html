@@ -16,7 +16,9 @@
 
 	<div id="output"></div>
 	
-	<script>
+	<script type="module">
+		import Random from './random'
+		
 		document.addEventListener('DOMContentLoaded', function() {
 			const rnd = new Random();
 			const output = document.querySelector('#output');
