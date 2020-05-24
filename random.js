@@ -1,32 +1,33 @@
+class Random {
 
-var Random = function() {
-
-	this.crypto = (typeof window.crypto.getRandomValues === 'function'),
+	constructor() {
+		this.crypto = (typeof window.crypto.getRandomValues === 'function');
 	
-	this.intMin = Number.MIN_VALUE,
-	this.intMax = Number.MAX_VALUE,
+		this.intMin = Number.MIN_VALUE;
+		this.intMax = Number.MAX_VALUE;
+	}	
 	
-	this.random = function() {
+	random() {
 		if (this.crypto) {
 			return window.crypto.getRandomValues(new Uint32Array(1))[0] / 4294967295;
 		}
 
 		return Math.random();
-	},
+	}
 
-	this.bool = function() {
+	bool = function() {
 		return this.random() < 0.5;
-	},
+	}
 
-	this.int = function(from, to) {
+	int = function(from, to) {
 		return this.randinterval(from, to, true);
-	},
+	}
 	
-	this.float = function(from, to) {
+	float = function(from, to) {
 		return from + ((to - from) * this.random());
-	},
+	}
 	
-	this.string = function(length, charactersToUse) {
+	string = function(length, charactersToUse) {
 		if (!charactersToUse) {
 			var charactersToUse = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		}
@@ -35,17 +36,17 @@ var Random = function() {
 			str += charactersToUse.charAt(this.int(0, charactersToUse.length - 1));
 		}
 		return str;
-	},
+	}
 	
-	this.chance = function(n) {
+	chance = function(n) {
 		return this.float(0, 100) < n;
-	},
+	}
 
-	this.pick = function(arr) {
+	pick = function(arr) {
 		return arr[this.int(0, arr.length - 1)];
-	},
+	}
 
-	this.shuffle = function(arr) {
+	shuffle = function(arr) {
 		var tmp, j, i = arr.length;
 		while (--i > 0) {
 			j = this.int(0, i);
@@ -55,10 +56,10 @@ var Random = function() {
 		}
 		
 		return arr;
-	},
+	}
 
 	/* usage .weighted(['a', 'b'], [100, 1]); picks one of the options, with odds applied */
-	this.weighted = function (options, odds) {
+	weighted = function (options, odds) {
         if (options.length !== odds.length) {
             throw new RangeError("Chance: Length of array and odds must match");
         }
@@ -102,9 +103,9 @@ var Random = function() {
         }
 
         return options[chosenIdx];
-    },
+    }
 	
-	this.randinterval = function(min, max, includeMax) {
+	randinterval = function(min, max, includeMax) {
 		
 		if (!includeMax) {
 			var includeMax = false;
@@ -116,13 +117,15 @@ var Random = function() {
 			return this.rand((max - min) + (includeMax ? 1 : 0)) + min;
 		}
 		return min + this.rand(max - min + (includeMax ? 1 : 0));
-	},
+	}
 
-	this.rand = function(n) {
+	rand = function(n) {
 		if (n <= 0 || n > this.intMax) {
 			console.error("n out of (0, INT_MAX]");
 		}
 		
 		return Math.floor(this.random() * n);
 	}
-};
+}
+
+export default Random;
