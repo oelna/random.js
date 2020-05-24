@@ -5,6 +5,8 @@ A very basic javascript implementation of the most basic tools from [Random.hx](
 ## Usage
 
 ```javascript
+import Random from './random'
+
 let rnd = new Random();
 
 let newBool = rnd.bool();
