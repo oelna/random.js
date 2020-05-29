@@ -1,13 +1,14 @@
+
 class Random {
 
-	constructor() {
+	constructor () {
 		this.crypto = (typeof window.crypto.getRandomValues === 'function');
 	
 		this.intMin = Number.MIN_VALUE;
 		this.intMax = Number.MAX_VALUE;
 	}	
 	
-	random() {
+	random () {
 		if (this.crypto) {
 			return window.crypto.getRandomValues(new Uint32Array(1))[0] / 4294967295;
 		}
@@ -15,19 +16,19 @@ class Random {
 		return Math.random();
 	}
 
-	bool = function() {
+	bool () {
 		return this.random() < 0.5;
 	}
 
-	int = function(from, to) {
+	int (from, to) {
 		return this.randinterval(from, to, true);
 	}
 	
-	float = function(from, to) {
+	float (from, to) {
 		return from + ((to - from) * this.random());
 	}
 	
-	string = function(length, charactersToUse) {
+	string (length, charactersToUse) {
 		if (!charactersToUse) {
 			var charactersToUse = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		}
@@ -38,15 +39,15 @@ class Random {
 		return str;
 	}
 	
-	chance = function(n) {
+	chance (n) {
 		return this.float(0, 100) < n;
 	}
 
-	pick = function(arr) {
+	pick (arr) {
 		return arr[this.int(0, arr.length - 1)];
 	}
 
-	shuffle = function(arr) {
+	shuffle (arr) {
 		var tmp, j, i = arr.length;
 		while (--i > 0) {
 			j = this.int(0, i);
@@ -59,7 +60,7 @@ class Random {
 	}
 
 	/* usage .weighted(['a', 'b'], [100, 1]); picks one of the options, with odds applied */
-	weighted = function (options, odds) {
+	weighted (options, odds) {
         if (options.length !== odds.length) {
             throw new RangeError("Chance: Length of array and odds must match");
         }
@@ -105,7 +106,7 @@ class Random {
         return options[chosenIdx];
     }
 	
-	randinterval = function(min, max, includeMax) {
+	randinterval (min, max, includeMax) {
 		
 		if (!includeMax) {
 			var includeMax = false;
@@ -119,7 +120,7 @@ class Random {
 		return min + this.rand(max - min + (includeMax ? 1 : 0));
 	}
 
-	rand = function(n) {
+	rand (n) {
 		if (n <= 0 || n > this.intMax) {
 			console.error("n out of (0, INT_MAX]");
 		}
