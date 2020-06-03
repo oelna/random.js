@@ -1,5 +1,5 @@
 
-class Random {
+class random {
 
 	constructor () {
 		this.crypto = (typeof window.crypto.getRandomValues === 'function');
@@ -30,7 +30,7 @@ class Random {
 	
 	string (length, charactersToUse) {
 		if (!charactersToUse) {
-			var charactersToUse = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+			const charactersToUse = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		}
 		let str = "";
 		for (let i = 0; i < length; i++) {
@@ -38,17 +38,27 @@ class Random {
 		}
 		return str;
 	}
+
+	pick (arr) {
+		return arr[this.int(0, arr.length - 1)];
+	}
 	
 	chance (n) {
 		return this.float(0, 100) < n;
 	}
 
-	pick (arr) {
-		return arr[this.int(0, arr.length - 1)];
+	challenge (lower, upper, value) {
+		let span = upper - lower;
+
+		let chance = (value-lower)/(span/100);
+		if (chance <= lower) chance = 0;
+		if (chance >= upper) chance = 100;
+
+		return this.chance(chance);
 	}
 
 	shuffle (arr) {
-		var tmp, j, i = arr.length;
+		let tmp, j, i = arr.length;
 		while (--i > 0) {
 			j = this.int(0, i);
 			tmp = arr[i];
@@ -109,7 +119,7 @@ class Random {
 	randinterval (min, max, includeMax) {
 		
 		if (!includeMax) {
-			var includeMax = false;
+			const includeMax = false;
 		}
 		
 		if (min == max) return min;
@@ -127,6 +137,6 @@ class Random {
 		
 		return Math.floor(this.random() * n);
 	}
-}
+};
 
-export default Random;
+export { random };

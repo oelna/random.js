@@ -8,7 +8,6 @@
 		* { box-sizing: border-box; }
 		html { font: 100%/1.4 --system-ui, sans-serif; }
 	</style>
-	<script src="random.js" defer></script>
 </head>
 <body>
 
@@ -17,10 +16,10 @@
 	<div id="output"></div>
 	
 	<script type="module">
-		import Random from './random'
+		import { random } from './random.js'
 		
 		document.addEventListener('DOMContentLoaded', function() {
-			const rnd = new Random();
+			const rnd = new random();
 			const output = document.querySelector('#output');
 
 			output.insertAdjacentHTML('beforeend', '<span>.bool(): '+rnd.bool()+'</p>');
@@ -32,6 +31,7 @@
 			output.insertAdjacentHTML('beforeend', '<span>.pick(array): '+rnd.pick(['one', 'two', 'three'])+'</p>');
 			output.insertAdjacentHTML('beforeend', '<span>.shuffle(array): '+rnd.shuffle(['a', 'b', 'c', 'd', 'e', 'f'])+'</p>');
 			output.insertAdjacentHTML('beforeend', '<span>.weighted(inputArray, oddsArray): '+rnd.weighted(['a', 'b', 'c', 'd', 'e', 'f'], [1,1,1,2,2,6])+'</p>');
+			output.insertAdjacentHTML('beforeend', '<span>.challenge(lowerBound, upperBound, value): '+rnd.challenge(20, 150, 72)+'</p>');
 		});
 	</script>
 </body>
