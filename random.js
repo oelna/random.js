@@ -51,8 +51,8 @@ class random {
 		let span = upper - lower;
 
 		let chance = (value-lower)/(span/100);
-		if (chance <= lower) chance = 0;
-		if (chance >= upper) chance = 100;
+		if (chance <= 0) chance = 0;
+		if (chance >= 100) chance = 100;
 
 		return this.chance(chance);
 	}
