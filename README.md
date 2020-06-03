@@ -1,13 +1,13 @@
 # random.js
 
-A very basic javascript implementation of the most basic tools from [Random.hx](https://github.com/haxegon/haxegon/blob/master/haxegon/Random.hx) by [Terry Cavanagh](https://github.com/TerryCavanagh)
+A very basic javascript implementation of most of the tools from [Random.hx](https://github.com/haxegon/haxegon/blob/master/haxegon/Random.hx) by [Terry Cavanagh](https://github.com/TerryCavanagh)
 
 ## Usage
 
 ```javascript
-import Random from './random'
+import { random } from './random.js'
 
-let rnd = new Random();
+let rnd = new random();
 
 let newBool = rnd.bool();
 let newRandom = rnd.random(); /* random float between 0 and 1 */
@@ -18,6 +18,7 @@ let newString = rnd.string(40, '0123456789abcdef'); /* random 40 character strin
 let newPick = rnd.pick(['one', 'two', 'three']); /* returns a random value from an array */
 let newShuffledArray = rnd.shuffle(['a', 'b', 'c', 'd', 'e', 'f']); /* returns a shuffled array */
 let newWeightedPick = rnd.weighted(['a', 'b', 'c', 'd', 'e', 'f'], [1,1,1,2,2,6]); /* returns a weighted array pick */
+let newChallenge = rnd.challenge(20, 150, 75); /* % chance to return true, based on value between lower and upper bounds */
 ```
 
 ## Notes
