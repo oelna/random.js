@@ -23,9 +23,17 @@ let newChallenge = rnd.challenge(20, 150, 75); /* % chance to return true, based
 
 ## Notes
 
-For lack of proper xorshift, such as [xorshift.js](https://github.com/AndreasMadsen/xorshift/blob/master/xorshift.js), this uses the [Web Cryptography API](https://developer.mozilla.org/en-US/docs/Web/API/Crypto) to generate random values. If not available, it falls back to `Math.random()`. I know.
+Values are derived using `mulberry32` (https://stackoverflow.com/a/47593316/3625228), with a small built-in hash method to allow for alphanum seed values. All this is not perfect, but this version allows for manually setting seed, as well as getting and setting.
 
-If you need a more rounded random package, [Chance.js](https://github.com/chancejs/chancejs) looks to be the solution. I liked Terry Cavanagh's go at the problem, because it was readable and small in size and scope; the daily bread. I stripped the seed mechanism from it because I don't need it and don't understand it well enough to reproduce it accurately.
+```javascript
+let rnd = new random('custom-seed-string');
+const bak = rnd.getState();
+rnd.setState('other-seed');
+```
+
+This will produce predictable outcomes, as used in many games.
+
+If you need a more rounded random package, [Chance.js](https://github.com/chancejs/chancejs) looks to be the solution. I liked Terry Cavanagh's go at the problem, because it was readable and small in size and scope; the daily bread. ~~I stripped the seed mechanism from it because I don't need it and don't understand it well enough to reproduce it accurately.~~
 
 ## Warning
 
