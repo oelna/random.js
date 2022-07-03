@@ -8,7 +8,7 @@ class random {
 		this.intMax = Number.MAX_VALUE;
 
 		// prepare a valid seed from alphanumeric input
-		this.seed = seed || this.makeSeed();
+		this.seed = seed || this.makeSeed(32, null);
 		this._seed = this.makeHash(this.seed);
 
 		// fire up the generator
@@ -35,14 +35,28 @@ class random {
 		return hash;
 	}
 
-	makeSeed () {
-		// todo: verify this works properly
+	makeSeed (length, characters) {
+		// make a good pseudo-random string
+		// https://stackoverflow.com/a/51540480/3625228
+		// https://stackoverflow.com/a/1349426/3625228
+
+		if (!length) length = 32;
+		if (!characters) characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+		
 		if (this.crypto) {
-			var o = new Uint32Array(1);
-			window.crypto.getRandomValues(o);
-			return o[0];
+			const values = Array.from(crypto.getRandomValues(new Uint32Array(length)));
+			const str = values.map(function (x) {
+				return characters[x % characters.length];
+			});
+			return str.join('');
 		} else {
-			return Math.floor(Math.random() * Math.pow(2, 32));
+			let str = '';
+			var charactersLength = characters.length;
+			for (var i=0; i<length; i++) {
+				str += characters.charAt(Math.floor(Math.random() * 
+					charactersLength));
+			}
+			return str;
 		}
 	}
 
