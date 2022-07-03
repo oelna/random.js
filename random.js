@@ -128,50 +128,50 @@ class random {
 
 	/* usage .weighted(['a', 'b'], [100, 1]); picks one of the options, with odds applied */
 	weighted (options, odds) {
-        if (options.length !== odds.length) {
-            throw new RangeError("Chance: Length of array and odds must match");
-        }
+		if (options.length !== odds.length) {
+			throw new RangeError("Chance: Length of array and odds must match");
+		}
 
-        let sum = 0;
-        let val;
-        for (let weightIndex = 0; weightIndex < odds.length; ++weightIndex) {
-            val = odds[weightIndex];
-            if (isNaN(val)) {
-                throw new RangeError("Chance: All weights must be numbers");
-            }
+		let sum = 0;
+		let val;
+		for (let weightIndex = 0; weightIndex < odds.length; ++weightIndex) {
+			val = odds[weightIndex];
+			if (isNaN(val)) {
+				throw new RangeError("Chance: All weights must be numbers");
+			}
 
-            if (val > 0) {
-                sum += val;
-            }
-        }
+			if (val > 0) {
+				sum += val;
+			}
+		}
 
-        if (sum === 0) {
-            throw new RangeError("Chance: No valid entries in array odds");
-        }
+		if (sum === 0) {
+			throw new RangeError("Chance: No valid entries in array odds");
+		}
 
-        const selected = this.random() * sum;
+		const selected = this.random() * sum;
 
-        let total = 0;
-        let lastGoodIdx = -1;
-        let chosenIdx;
-        for (let weightIndex = 0; weightIndex < odds.length; ++weightIndex) {
-            val = odds[weightIndex];
-            total += val;
-            if (val > 0) {
-                if (selected <= total) {
-                    chosenIdx = weightIndex;
-                    break;
-                }
-                lastGoodIdx = weightIndex;
-            }
+		let total = 0;
+		let lastGoodIdx = -1;
+		let chosenIdx;
+		for (let weightIndex = 0; weightIndex < odds.length; ++weightIndex) {
+			val = odds[weightIndex];
+			total += val;
+			if (val > 0) {
+				if (selected <= total) {
+					chosenIdx = weightIndex;
+					break;
+				}
+				lastGoodIdx = weightIndex;
+			}
 
-            if (weightIndex === (odds.length - 1)) {
-                chosenIdx = lastGoodIdx;
-            }
-        }
+			if (weightIndex === (odds.length - 1)) {
+				chosenIdx = lastGoodIdx;
+			}
+		}
 
-        return options[chosenIdx];
-    }
+		return options[chosenIdx];
+	}
 	
 	randinterval (min, max, includeMax) {
 		
